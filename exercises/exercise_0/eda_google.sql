@@ -21,7 +21,41 @@ SELECT
     MAX(date) as max_search_date
 FROM google_keywords;
 
+SELECT
+    keyword,
+    COUNT(*) AS search_count
+FROM google_keywords
+GROUP BY keyword
+ORDER BY search_count DESC
+LIMIT 10;
 
 
+SELECT 
+    COUNT(DISTINCT keyword) as unique_keywords
+FROM google_keywords;
 
+SELECT 
+    platform,
+    COUNT(*) AS num_rows,
+    SUM(CALIBRATED_USERS) AS total_users
+FROM google_keywords
+GROUP BY platform
+ORDER BY total_users DESC;
 
+SELECT 
+    KEYWORD,
+    COUNT(*) AS search_count
+FROM google_keywords
+WHERE COUNTRY = 752
+GROUP BY KEYWORD
+ORDER BY search_count DESC
+LIMIT 20;
+
+SELECT 
+    COUNTRY,
+    COUNT(*) AS search_count
+FROM google_keywords
+WHERE KEYWORD = 'spotify'
+GROUP BY COUNTRY
+ORDER BY search_count DESC
+LIMIT 10;
