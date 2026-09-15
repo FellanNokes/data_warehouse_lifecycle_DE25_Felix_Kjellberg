@@ -11,8 +11,6 @@ USE ROLE SECURITYADMIN;
 -- grant to users
 GRANT ROLE movies_dlt_role TO USER extract_loader;
 
-GRANT ROLE movies_reader_role TO USER nokes;
-
 -- grant privileges to role
 GRANT USAGE ON WAREHOUSE dev_wh TO ROLE movies_dlt_role;
 GRANT USAGE ON DATABASE movies TO ROLE movies_dlt_role;
@@ -27,3 +25,20 @@ SHOW GRANTS ON SCHEMA movies.staging;
 SHOW FUTURE GRANTS IN SCHEMA movies.staging;
 SHOW GRANTS TO ROLE movies_dlt_role;
 SHOW GRANTS TO USER extract_loader;
+
+-- create reader role
+USE ROLE useradmin;
+CREATE ROLE IF NOT EXISTS movies_reader_role;
+
+
+-- grant privileges to role
+USE ROLE securityadmin;
+
+GRANT USAGE ON WAREHOUSE dev_wh TO ROLE movies_reader_role;
+GRANT USAGE ON DATABASE movies TO ROLE movies_reader_role;
+GRANT USAGE ON SCHEMA movies.staging TO ROLE movies_reader_role;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA movies.staging TO ROLE movies_reader_role;
+GRANT SELECT ON FUTURE TABLES IN DATABASE movies TO ROLE movies_reader_role;
+
+GRANT ROLE movies_reader_role TO USER nokes;-- fill in your own user name here
