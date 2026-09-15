@@ -219,3 +219,5 @@ __marimo__/
 
 # dlthub
 .dlt
+
+#06_dlt_extract_load_csv_dlt/worksheet_snowflake/setup_user_role.sql
