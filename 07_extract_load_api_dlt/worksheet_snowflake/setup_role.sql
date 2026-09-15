@@ -19,6 +19,7 @@ GRANT USAGE ON DATABASE job_ads TO ROLE job_ads_dlt_role;
 GRANT USAGE ON SCHEMA job_ads.staging TO ROLE job_ads_dlt_role;
 GRANT CREATE TABLE ON SCHEMA job_ads.staging TO ROLE job_ads_dlt_role;
 
+-- gran CRUD operations to role
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA job_ads.staging TO ROLE job_ads_dlt_role;
 GRANT SELECT, INSERT, UPDATE, DELETE ON FUTURE TABLES IN SCHEMA job_ads.staging TO ROLE job_ads_dlt_role;
 
