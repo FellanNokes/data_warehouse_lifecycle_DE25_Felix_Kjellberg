@@ -2,6 +2,7 @@ USE ROLE USERADMIN;
 
 CREATE ROLE IF NOT EXISTS movies_dlt_role;
 CREATE ROLE IF NOT EXISTS movies_reader_role;
+
 CREATE USER IF NOT EXISTS extract_loader
     PASSWORD = ''
     DEFAULT_WAREHOUSE = dev_wh;
@@ -10,6 +11,7 @@ USE ROLE SECURITYADMIN;
 
 -- grant to users
 GRANT ROLE movies_dlt_role TO USER extract_loader;
+GRANT ROLE movies_dlt_role TO USER nokes;
 
 -- grant privileges to role
 GRANT USAGE ON WAREHOUSE dev_wh TO ROLE movies_dlt_role;
@@ -36,7 +38,9 @@ USE ROLE securityadmin;
 
 GRANT USAGE ON WAREHOUSE dev_wh TO ROLE movies_reader_role;
 GRANT USAGE ON DATABASE movies TO ROLE movies_reader_role;
+GRANT MONITOR ON DATABASE movies TO ROLE movies_reader_role;
 GRANT USAGE ON SCHEMA movies.staging TO ROLE movies_reader_role;
+GRANT MONITOR ON SCHEMA movies.staging TO ROLE movies_reader_role;
 
 GRANT SELECT ON ALL TABLES IN SCHEMA movies.staging TO ROLE movies_reader_role;
 GRANT SELECT ON FUTURE TABLES IN DATABASE movies TO ROLE movies_reader_role;
