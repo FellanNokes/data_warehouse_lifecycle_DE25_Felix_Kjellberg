@@ -41,6 +41,14 @@ These study questions are good to get an overview of snowflake roles and dlt for
 
 &nbsp; a) Why is the principal of least privilege important in a company?
 
+The principle of least privilege means giving people just enough access to do their job, and nothing more. This matters for a company for several reasons.
+
+First, it limits the damage if something goes wrong. If an account gets compromised (e.g. through phishing), the attacker can only reach what that account has access to, not the entire system. It also reduces the risk of accidental damage, like someone deleting or leaking data they didn't actually need access to in the first place.
+
+Second, it makes compliance and audits easier. Many industries (finance, healthcare, etc.) require companies to show exactly who has access to what and why. Least privilege makes that much simpler to track and justify.
+
+Finally, it protects against insider risk, not just external attacks, since even employees with bad intentions can only do as much damage as their access allows.
+
 &nbsp; b) Explain the role of dlt in managing data pipelines.
 
 &nbsp; c) What is a data connector and why is it important in data integration?
@@ -48,6 +56,11 @@ These study questions are good to get an overview of snowflake roles and dlt for
 &nbsp; d) What are the three different *write dispositions* in dlt?
 
 &nbsp; e) What is ELT and how does it differ from ETL?
+ELT stands for Extract, Load, Transform. The biggest difference compared to ETL is when the transformation happens.
+
+In ETL, data is transformed before it's loaded into the destination. If the transformation step fails or is too slow, you risk losing or delaying data before it ever reaches storage.
+
+In ELT, raw data is loaded first and transformed afterward, directly in the destination (e.g. a data warehouse like Snowflake). This means no data is lost even if the transformation step has issues, and it also lets you take advantage of the destination's own processing power for transformations rather than relying on a separate tool.
 
 &nbsp; f) Discuss the advantages of performing data transformations after loading the data.
 
