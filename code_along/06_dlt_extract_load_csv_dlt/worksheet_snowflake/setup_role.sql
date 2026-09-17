@@ -25,12 +25,12 @@ SHOW GRANTS TO ROLE movies_dlt_role;
 SHOW GRANTS TO USER extract_loader;
 
 -- create reader role
-USE ROLE useradmin;
+USE ROLE USERADMIN;
 CREATE ROLE IF NOT EXISTS movies_reader_role;
 
 
 -- grant privileges to role
-USE ROLE securityadmin;
+USE ROLE SECURITYADMIN;
 
 GRANT USAGE ON WAREHOUSE dev_wh TO ROLE movies_reader_role;
 GRANT USAGE ON DATABASE movies TO ROLE movies_reader_role;
