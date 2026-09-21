@@ -56,6 +56,7 @@ Finally, it protects against insider risk, not just external attacks, since even
 &nbsp; d) What are the three different *write dispositions* in dlt?
 
 &nbsp; e) What is ELT and how does it differ from ETL?
+
 ELT stands for Extract, Load, Transform. The biggest difference compared to ETL is when the transformation happens.
 
 In ETL, data is transformed before it's loaded into the destination. If the transformation step fails or is too slow, you risk losing or delaying data before it ever reaches storage.
