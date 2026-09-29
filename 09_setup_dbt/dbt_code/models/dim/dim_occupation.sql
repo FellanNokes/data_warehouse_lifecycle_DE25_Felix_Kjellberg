@@ -1,9 +1,10 @@
 with src_occupation as (select * from {{ ref('src_occupation') }})
 
-select
-    {{ dbt_utils.generate_surrogate_key(['occupation']) }} as occupation_id,
+select distinct
+    occupation_id,
     occupation,
-    max(occupation_group) as occupation_group,
-    max(occupation_field) as occupation_field
+    occupation_group_id,
+    occupation_group,
+    occupation_field_id,
+    occupation_field
 from src_occupation
-group by occupation

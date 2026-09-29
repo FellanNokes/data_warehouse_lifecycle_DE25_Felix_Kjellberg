@@ -1,7 +1,11 @@
 with job_ads as (select * from {{ ref('src_job_ads') }})
 
 select 
-    {{ dbt_utils.generate_surrogate_key(['occupation__label']) }} as occupation_id,
+    job_id,
+    job_details_id,
+    occupation_id,
+    auxilliary_attributes_id,
+    employer_id,
     vacancies,
     relevance,
     application_deadline
