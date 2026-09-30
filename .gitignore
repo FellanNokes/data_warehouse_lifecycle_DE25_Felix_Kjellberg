@@ -221,3 +221,9 @@ __marimo__/
 .dlt
 setup_user.sql
 test_connect.py
+
+# dbt
+target/
+dbt_packages/
+logs/
+.env
