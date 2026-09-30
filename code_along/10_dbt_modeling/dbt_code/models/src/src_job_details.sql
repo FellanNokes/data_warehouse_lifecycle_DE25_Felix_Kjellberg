@@ -1,7 +1,6 @@
 with stg_job_ads as (select * from {{ source('job_ads', 'stg_ads') }})
 
 select
-    {{ job_details_key() }} as job_details_id,
     headline as headline,
     description__text as description_text,
     description__text_formatted as description_html_formatted,
