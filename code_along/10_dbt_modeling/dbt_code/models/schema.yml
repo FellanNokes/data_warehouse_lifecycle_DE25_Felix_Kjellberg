@@ -1,7 +1,129 @@
+version: 2
+
 models:
     - name: dim_employer
       columns:
         - name: employer_id
           data_tests:
             - unique
+            - not_null
+        - name: employer_name
+          data_tests:
+            - not_null
+        - name: employer_organization_number
+          data_tests:
+            - not_null
+        - name: workplace_city
+          data_tests:
+            - not_null
+        - name: workplace_country
+          data_tests:
+            - accepted_values:
+                arguments:
+                  values: ['Sverige']
+                config:
+                  severity: warn
+
+    - name: dim_job_details
+      columns:
+        - name: job_details_id
+          data_tests:
+            - unique
+            - not_null
+        - name: headline
+          data_tests:
+            - not_null
+        - name: description_text
+          data_tests:
+            - not_null
+        - name: employment_type
+          data_tests:
+            - not_null
+            - accepted_values:
+                arguments:
+                  values:
+                    - 'Vanlig anställning'
+                    - 'Tillsvidareanställning (inkl. eventuell provanställning)'
+                    - 'Behovsanställning'
+                    - 'Vikariat'
+                config:
+                  severity: warn
+        - name: scope_of_work_min
+          data_tests:
+            - dbt_utils.accepted_range:
+                arguments:
+                  min_value: 0
+                  max_value: 100
+
+    - name: dim_occupation
+      columns:
+        - name: occupation_id
+          data_tests:
+            - unique
+            - not_null
+        - name: occupation
+          data_tests:
+            - not_null
+
+    - name: dim_auxilliary_attributes
+      columns:
+        - name: auxilliary_attributes_id
+          data_tests:
+            - unique
+            - not_null
+        - name: experience_required
+          data_tests:
+            - accepted_values:
+                arguments:
+                  values: [true, false]
+                  quote: false
+        - name: driver_license
+          data_tests:
+            - accepted_values:
+                arguments:
+                  values: [true, false]
+                  quote: false
+
+    - name: fct_job_ads
+      columns:
+        - name: job_id
+          data_tests:
+            - unique
+            - not_null
+        - name: job_details_id
+          data_tests:
+            - not_null
+            - relationships:
+                arguments:
+                  to: ref('dim_job_details')
+                  field: job_details_id
+        - name: occupation_id
+          data_tests:
+            - not_null
+            - relationships:
+                arguments:
+                  to: ref('dim_occupation')
+                  field: occupation_id
+        - name: employer_id
+          data_tests:
+            - not_null
+            - relationships:
+                arguments:
+                  to: ref('dim_employer')
+                  field: employer_id
+        - name: auxilliary_attributes_id
+          data_tests:
+            - not_null
+            - relationships:
+                arguments:
+                  to: ref('dim_auxilliary_attributes')
+                  field: auxilliary_attributes_id
+        - name: vacancies
+          data_tests:
+            - not_null
+            - dbt_utils.accepted_range:
+                arguments:
+                  min_value: 1
+        - name: application_deadline
+          data_tests:
             - not_null

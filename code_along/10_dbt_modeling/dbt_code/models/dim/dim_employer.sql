@@ -14,6 +14,9 @@ select distinct
     workplace_street_address,
     workplace_region,
     workplace_postcode,
-    workplace_city,
+    coalesce(
+        {{ capitlize_first_letter('workplace_city') }},
+        'Stad ej specificerad'
+    ) as workplace_city,
     workplace_country
 from src_employer
