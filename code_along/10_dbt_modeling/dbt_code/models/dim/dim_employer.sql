@@ -1,14 +1,19 @@
 with src_employer as (select * from {{ ref('src_employer') }})
 
 select distinct
-    {{ employer_key() }} as employer_id,
-    employer__name as employer_name,
-    employer__workplace as employer_workplace,
-    employer__organization_number as employer_organization_number,
+    {{ dbt_utils.generate_surrogate_key([
+    'employer_workplace',
+    'workplace_address__municipality',
+    'workplace_street_address',
+    'workplace_city']) 
+    }} as employer_id,
+    employer_name,
+    employer_workplace,
+    employer_organization_number,
     workplace_address__municipality,
-    workplace_address__street_address as workplace_street_address,
-    workplace_address__region as workplace_region,
-    workplace_address__postcode as workplace_postcode,
-    workplace_address__city as workplace_city,
-    workplace_address__country as workplace_country
+    workplace_street_address,
+    workplace_region,
+    workplace_postcode,
+    workplace_city,
+    workplace_country
 from src_employer
